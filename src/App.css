@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+.style-pane {
+  --a: Lucida Sans;
+  --b: 90deg;
+  --c: 80 50% 80%;
+  --d: 0px;
+  --e: 80 50% 90%;
+  --f: 3px;
+  --g: 40px;
+  --h: 40px;
+  --i: 40px;
+  --j: 24px;
+  --k: 700;
+  --l: 80 50% 30%;
+  --m: 100px;
+  --n: 80 50% 40%;
+  --o: 4px;
+  --p: solid;
+  --q: 100px;
+  --r: -20px;
+  --s: -10px;
+  --t: 80 50% 70%;
+  --u: 100px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.style-pane {
+  font-family: var(--a);
+  background-image: repeating-linear-gradient(
+    var(--b),
+    hsl(var(--c)) var(--d),
+    hsl(var(--e)) var(--f)
+  );
+  padding: var(--g);
+  gap: var(--h);
+  border-radius: var(--i);
+  font-size: var(--j);
+  color: hsl(var(--l));
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.style-pane h1 {
+  font-weight: var(--k);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.style-pane button {
+  height: var(--m);
+  background-color: hsl(var(--n));
+  border-width: var(--o);
+  border-style: var(--p);
+  border-color: hsl(var(--l));
+  border-radius: var(--q);
+  font-weight: var(--k);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.style-pane img {
+  box-shadow: var(--r) var(--s) hsl(var(--t));
+  border-radius: var(--u);
+  max-width: 100%;
 }

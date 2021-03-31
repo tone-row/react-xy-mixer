@@ -1,0 +1,23 @@
+.multi-range {
+  border: 2px solid;
+  display: block;
+}
+
+.multi-range__circle {
+  fill: none;
+  stroke-width: 2;
+  stroke: black;
+}
+
+.multi-range__polygon {
+  fill: none;
+  stroke-width: 2;
+  stroke: black;
+}
+
+.multi-range__handler {
+  cursor: pointer;
+  fill: white;
+  stroke-width: 2;
+  stroke: black;
+}
