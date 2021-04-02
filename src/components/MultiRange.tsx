@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
   Dispatch,
   SetStateAction,
   useCallback,
@@ -29,10 +30,14 @@ export default function MultiRange({
   n,
   size,
   setWeights,
+  clip = false,
+  bound = true,
 }: {
   size: number;
   n: number;
   setWeights: Dispatch<SetStateAction<number[]>>;
+  clip?: boolean;
+  bound?: boolean;
 }) {
   if (n < 1) {
     throw new Error("n must be a postivie integer");
@@ -185,14 +190,19 @@ export default function MultiRange({
           e.preventDefault();
           const coord = getMousePosition(e);
           if (coord) {
-            const bounds = getBounds(coord.y);
-            let boundedCoord = {
-              x: Math.max(Math.min(coord.x, bounds.maxX), bounds.minX),
-              y: bounds.y,
-            };
-            // get distance from each point
-            setWeights(getWeights(boundedCoord));
-            setCenter(boundedCoord);
+            if (bound) {
+              const bounds = getBounds(coord.y);
+              let boundedCoord = {
+                x: Math.max(Math.min(coord.x, bounds.maxX), bounds.minX),
+                y: bounds.y,
+              };
+              // get distance from each point
+              setWeights(getWeights(boundedCoord));
+              setCenter(boundedCoord);
+            } else {
+              setWeights(getWeights(coord));
+              setCenter(coord);
+            }
           }
         }
       };
@@ -213,27 +223,52 @@ export default function MultiRange({
         window.removeEventListener("mouseleave", endDrag);
       };
     }
-  }, [getBounds, getWeights, setWeights]);
+  }, [bound, getBounds, getWeights, setWeights]);
 
   return (
-    <svg className="multi-range" style={{ width: size, height: size }}>
+    <svg
+      className={["multi-range", clip ? "clip" : ""].filter(Boolean).join(" ")}
+      style={
+        {
+          width: size,
+          height: size,
+          "--multi-range-clip-path": `polygon(${points
+            .map((point) =>
+              point.map((p) => `${round(p / size) * 100}%`).join(" ")
+            )
+            .join(", ")})`,
+        } as CSSProperties
+      }
+    >
+      <defs>
+        <path
+          id="ld"
+          d="M256,0 L0,512 L384,512 L128,1024 L1024,384 L640,384 L896,0 L256,0 Z"
+        />
+        <polygon
+          id="boundary"
+          points={points.map((point) => point.join(",")).join(" ")}
+        />
+        <clipPath id="clip">
+          <use xlinkHref="#boundary" />
+        </clipPath>
+      </defs>
       <circle
         className="multi-range__circle"
         cx={size / 2}
         cy={size / 2}
         r={size / 2}
       />
-      <polygon
-        className="multi-range__polygon"
-        points={points.map((point) => point.join(",")).join(" ")}
-      />
-      <circle
-        className="multi-range__handler draggable"
-        cx={center.x}
-        cy={center.y}
-        r={Math.max(size / 16, 7)}
-        ref={handle}
-      />
+      <g clip-path={clip && bound ? "url(#clip)" : undefined}>
+        <use xlinkHref="#boundary" className="multi-range__polygon" />
+        <circle
+          className="multi-range__handler draggable"
+          cx={center.x}
+          cy={center.y}
+          r={Math.max(size / 16, 7)}
+          ref={handle}
+        />
+      </g>
     </svg>
   );
 }
@@ -242,8 +277,8 @@ function innerProduct(a: number[], b: number[]) {
   return a[0] * b[0] + a[1] + b[1];
 }
 
-function round(n: number) {
-  const x = 100000;
+function round(n: number, z: number = 5) {
+  const x = Math.pow(10, 5);
   return Math.round(n * x) / x;
 }
 

@@ -44,7 +44,7 @@ function App() {
       gap={4}
     >
       <Box>
-        <MultiRange size={300} {...componentProps} />
+        <MultiRange size={300} clip={true} bound={false} {...componentProps} />
       </Box>
       <Box className="style-pane" content="start normal" style={styles}>
         <h1>Hello World</h1>
