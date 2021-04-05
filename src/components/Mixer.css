@@ -1,19 +1,14 @@
-.multi-range {
-  /* border: 2px solid; */
-  display: block;
+.multi-range__background {
+  fill: none;
 }
 
-/* .multi-range.clip {
-  clip-path: var(--multi-range-clip-path);
-} */
-
 .multi-range__circle {
-  fill: whitesmoke;
+  fill: rgb(231, 231, 231);
   stroke-width: 0;
 }
 
 .multi-range__polygon {
-  fill: white;
+  fill: rgb(212, 212, 212);
   stroke: none;
 }
 

@@ -495,7 +495,7 @@ body {
     --errorBottomMultiplier: var(--error-bottom-multiplier-7); }
 
 :root {
-	--base-font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+	--base-font-family:Neue Montreal;
 	--base-font-size-px:18px;
 	--base-font-size:18;
 	--base-font-size-mobile-px:16px;

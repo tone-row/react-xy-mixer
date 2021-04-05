@@ -55,3 +55,15 @@
   border-radius: var(--u);
   max-width: 100%;
 }
+
+.test-control .polygon {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+}
+
+.test-control .handle {
+  stroke-width: 5;
+  stroke: blue;
+  fill: greenyellow;
+}
