@@ -1,11 +1,14 @@
-- encapsulate lalolab into the component
-- make sure you can pass initial position or initial node, and the initial weight is applied correctly
-- allow passing custom handler element
 - move to multi package project with rollup export and demo page
 - how can you improve a11y
 - mask =
   "polygon" (clip handle inside polygon) ((automatically makes boundary polygon as well))
   "box" (clip handle inside box)
+- support initial position (in addition to initial node)
+- ability to pass children to mixer directly into svg, for like gradients, defs, etc
+- maybe polygonProps, handleProps... things like that... :D
+- ~~allow passing custom handler element~~
+- ~~support initial node~~
+- ~~encapsulate lalolab into the component~~
 - ~~clicking on svg should also move point to location of click~~
 - ~~move all props to hook~~
 - ~~width and height are over-writing things attributes on svg, don't do that unless you mean to: change prop to size~~

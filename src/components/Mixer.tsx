@@ -1,6 +1,9 @@
 import {
   CSSProperties,
   Dispatch,
+  forwardRef,
+  ForwardRefExoticComponent,
+  RefAttributes,
   SetStateAction,
   useCallback,
   useEffect,
@@ -9,6 +12,7 @@ import {
   useState,
 } from "react";
 import "./Mixer.css";
+import { array2mat, solve, min, sub, sum, entrywisediv } from "./lalolib";
 
 type LayoutMode = "MANUAL" | "AUTO";
 
@@ -19,11 +23,30 @@ interface useMixerOptions {
   rotate?: number;
   handleOffset?: number;
   boundary?: "polygon" | "box";
+  initial?: number;
+  handle?: ForwardRefExoticComponent<
+    MixerHandleProps & RefAttributes<any | null>
+  >;
 }
 
 function getNumNodes(nodes: number | number[][]) {
   return typeof nodes === "number" ? nodes : nodes.length;
 }
+
+const handleSize = 10;
+
+export type MixerHandleProps = { center: { x: number; y: number } };
+const DefaultHandle = forwardRef<SVGCircleElement | null, MixerHandleProps>(
+  ({ center }, handle) => (
+    <circle
+      className="multi-range__handler handle"
+      cx={center.x}
+      cy={center.y}
+      r={handleSize}
+      ref={handle}
+    />
+  )
+);
 
 export function useMixer(
   initialNodes: number | number[][],
@@ -32,20 +55,14 @@ export function useMixer(
     rotate: 0,
     handleOffset: 0,
     boundary: "box",
+    initial: 0,
+    handle: DefaultHandle,
   }
 ): [MixerProps, number[]] {
+  // need to effectually update i guess???
   const [nodes] = useState(initialNodes);
   const { size = DEFAULT_SIZE } = options;
-  // need to effectually update i guess???
 
-  // This should actually correspond to the starting position probably
-  const [weights, setWeights] = useState<number[]>(
-    Array(getNumNodes(nodes))
-      .fill(0)
-      .map((_, i) => (i === 0 ? 1 : 0))
-  );
-
-  //
   const setup = useMemo(() => {
     let arrayOfNodes = Array.isArray(nodes)
       ? nodes
@@ -92,6 +109,22 @@ export function useMixer(
     };
   }, [nodes, options.rotate, size]);
 
+  let startNode = options.initial ?? 0;
+  if (startNode < 0 || startNode > setup.nodes.length - 1)
+    throw new Error(`Initial ${startNode} is not valid.`);
+
+  // This should actually correspond to the starting position probably
+  const [weights, setWeights] = useState<number[]>(
+    Array(getNumNodes(nodes))
+      .fill(0)
+      .map((_, i) => (i === startNode ? 1 : 0))
+  );
+
+  const [center, setCenter] = useState({
+    x: setup.nodes[startNode][0],
+    y: setup.nodes[startNode][1],
+  });
+
   let componentProps: MixerProps = {
     setWeights,
     size,
@@ -100,6 +133,9 @@ export function useMixer(
     mode: setup.mode,
     handleOffset: options.handleOffset ?? 0,
     boundary: options.boundary ?? setup.mode === "AUTO" ? "polygon" : "box",
+    center,
+    setCenter,
+    handle: options.handle ?? DefaultHandle,
   };
 
   return [componentProps, weights];
@@ -113,6 +149,19 @@ interface MixerProps {
   nodes: number[][];
   boundary: "polygon" | "box"; // 'user'
   mode: "AUTO" | "MANUAL";
+  center: {
+    x: number;
+    y: number;
+  };
+  setCenter: Dispatch<
+    SetStateAction<{
+      x: number;
+      y: number;
+    }>
+  >;
+  handle: ForwardRefExoticComponent<
+    MixerHandleProps & RefAttributes<any | null>
+  >;
 }
 
 // need to scope svg boundary definition
@@ -131,18 +180,15 @@ export default function Mixer(
     boundary,
     handleOffset = 0,
     mode,
+    center,
+    setCenter,
+    handle: Handle,
     ...svgProps
   } = props;
 
   const id = useRef(`boundary-${defScopeIncrement++}`);
 
   const handle = useRef<SVGCircleElement | null>(null);
-
-  // Initial Handle Position
-  const [center, setCenter] = useState({
-    x: size / 2,
-    y: size / 2,
-  });
 
   const { boundaryFns, box, matrix } = useMemo(() => {
     let matrix = [];
@@ -310,9 +356,7 @@ export default function Mixer(
         window.removeEventListener("touchcancel", endDrag);
       };
     }
-  }, [getBounds, getWeights, setWeights]);
-
-  const handleSize = 10;
+  }, [getBounds, getWeights, setCenter, setWeights]);
 
   const viewBox = `${box.xMin - handleOffset} ${box.yMin - handleOffset} ${
     2 * handleOffset + box.xMax - box.xMin
@@ -345,13 +389,7 @@ export default function Mixer(
           xlinkHref={`#${id.current}`}
           className="multi-range__polygon polygon"
         />
-        <circle
-          className="multi-range__handler handle"
-          cx={center.x}
-          cy={center.y}
-          r={handleSize}
-          ref={handle}
-        />
+        <Handle center={center} ref={handle} />
       </g>
     </svg>
   );

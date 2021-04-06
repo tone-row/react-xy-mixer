@@ -1,3 +1,7 @@
+.multi-range {
+  cursor: pointer;
+}
+
 .multi-range__background {
   fill: none;
 }
@@ -13,7 +17,12 @@
 }
 
 .multi-range__handler {
-  cursor: pointer;
   fill: black;
   stroke-width: 0;
+}
+
+.custom-style .polygon {
+  fill: none;
+  stroke: pink;
+  stroke-width: 20;
 }

@@ -1,15 +1,39 @@
+import { forwardRef } from "react";
 import "./App.css";
-import Mixer, { useMixer } from "./components/Mixer";
+import Mixer, { MixerHandleProps, useMixer } from "./components/Mixer";
 import { borders, fonts, options } from "./components/options";
 import { Box, Type } from "./slang";
 
-function App() {
-  const [props, weights] = useMixer(3, {
-    rotate: -Math.PI / 2,
-    handleOffset: 12.5,
-  });
-  const styles = getStyle(weights);
+const CustomHandle = forwardRef<SVGPathElement, MixerHandleProps>(
+  ({ center }, ref) => (
+    <>
+      <filter id="dropshadow" height="130%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+        <feOffset dx="2" dy="2" result="offsetblur" />
+        <feComponentTransfer>
+          <feFuncA type="linear" slope="0.5" />
+        </feComponentTransfer>
+        <feMerge>
+          <feMergeNode />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+      <path
+        ref={ref}
+        transform={`translate(${center.x - 45} ${center.y - 45})`}
+        fill="hotpink"
+        style={{ filter: "url(#dropshadow)" }}
+        d="M 10,30
+           A 20,20 0,0,1 50,30
+           A 20,20 0,0,1 90,30
+           Q 90,60 50,90
+           Q 10,60 10,30 z"
+      />
+    </>
+  )
+);
 
+function App() {
   const [props2, w] = useMixer(
     [
       [1, 0.25],
@@ -21,6 +45,19 @@ function App() {
       handleOffset: 10,
     }
   );
+
+  const [props, weights] = useMixer(3, {
+    // rotate: -Math.PI / 2,
+    initial: 1,
+    handleOffset: 12.5,
+  });
+  const styles = getStyle(weights);
+
+  // Custom Handle
+  const [handleProps, handleWeights] = useMixer(5, {
+    handleOffset: 50,
+    handle: CustomHandle,
+  });
 
   return (
     <Box className="App" root content="start normal" p={4} gap={4}>
@@ -60,6 +97,19 @@ function App() {
             <img src="http://placekitten.com/401/400" alt="Kitten" />
           </Box>
           <button>Click This Button</button>
+        </Box>
+      </Box>
+      <Box>
+        <Type size={2} as="h2">
+          Custom Handle Example
+        </Type>
+        <Box
+          at={{
+            tablet: { template: "none / auto auto", items: "center start" },
+          }}
+        >
+          <Mixer {...handleProps} className="custom-style" />
+          <Type>{JSON.stringify(handleWeights)}</Type>
         </Box>
       </Box>
     </Box>
