@@ -1,8 +1,7 @@
 import { forwardRef } from "react";
-import "./App.css";
-import { Mixer, MixerHandleProps, useMixer } from "react-xy-mixer";
-import { borders, fonts, options } from "./components/options";
-import { Box, Type } from "./slang";
+import { MixerHandleProps, useMixer, Mixer } from "react-xy-mixer";
+import { Box, Type } from "../components/slang";
+import { borders, fonts, options } from "../components/options";
 
 const CustomHandle = forwardRef<SVGPathElement, MixerHandleProps>(
   ({ center }, ref) => (
@@ -33,7 +32,7 @@ const CustomHandle = forwardRef<SVGPathElement, MixerHandleProps>(
   )
 );
 
-function App() {
+const IndexPage = () => {
   const [props2, w] = useMixer(
     [
       [1, 0.25],
@@ -114,9 +113,9 @@ function App() {
       </Box>
     </Box>
   );
-}
+};
 
-export default App;
+export default IndexPage;
 
 function getStyle(weights: number[]) {
   const r = options.reduce((acc, option, i) => {

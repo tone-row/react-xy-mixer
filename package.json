@@ -3,5 +3,12 @@
   "workspaces": [
     "docs",
     "react-xy-mixer"
-  ]
+  ],
+  "devDependencies": {
+    "concurrently": "^6.0.1"
+  },
+  "scripts": {
+    "dev": "concurrently -n 'react-xy-mixer,docs' 'yarn workspace react-xy-mixer dev' 'yarn workspace docs dev'",
+    "build": "yarn workspace react-xy-mixer build && yarn workspace docs build"
+  }
 }
