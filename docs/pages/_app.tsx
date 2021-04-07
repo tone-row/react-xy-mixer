@@ -1,9 +1,22 @@
 import type { AppProps /*, AppContext */ } from "next/app";
 import "../components/slang/slang.css";
 import "./_app.css";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <script
+          async
+          defer
+          data-domain="react-xy-mixer.tone-row.com"
+          src="https://plausible.io/js/plausible.js"
+        />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for
