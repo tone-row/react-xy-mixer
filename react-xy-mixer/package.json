@@ -5,12 +5,16 @@
   "main": "build/index.js",
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
+  "repository": {
+    "url": "https://github.com/tone-row/react-xy-mixer"
+  },
   "files": [
     "build"
   ],
   "scripts": {
     "build": "rollup -c",
-    "dev": "yarn build --watch"
+    "dev": "yarn build --watch",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -21,6 +25,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-typescript2": "^0.30.0",
+    "semantic-release": "^17.4.2",
     "typescript": "^4.2.3"
   },
   "peerDependencies": {
