@@ -1,4 +1,4 @@
-import {
+import React, {
   CSSProperties,
   Dispatch,
   forwardRef,
@@ -290,6 +290,7 @@ export default function Mixer(
     const cHandle = handle.current;
     if (cHandle) {
       let svg = cHandle.parentNode?.parentNode as SVGSVGElement;
+
       const getMousePosition = (evt: MouseEvent | TouchEvent) => {
         var CTM = svg.getScreenCTM();
         let e = "touches" in evt ? evt.touches[0] : evt;
@@ -303,6 +304,7 @@ export default function Mixer(
       };
 
       let isDragging = false;
+
       const startDrag = (e: MouseEvent | TouchEvent) => {
         isDragging = true;
         drag(e);
@@ -327,7 +329,7 @@ export default function Mixer(
         }
       };
 
-      const endDrag: EventListener = (e) => {
+      const endDrag: EventListener = () => {
         isDragging = false;
       };
 
@@ -399,7 +401,7 @@ function innerProduct(a: number[], b: number[]) {
   return a[0] * b[0] + a[1] + b[1];
 }
 
-function round(n: number, z: number = 5) {
+function round(n: number) {
   const x = Math.pow(10, 5);
   return Math.round(n * x) / x;
 }

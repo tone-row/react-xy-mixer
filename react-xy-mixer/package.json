@@ -1,6 +1,29 @@
 {
   "name": "react-xy-mixer",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "version": "0.0.0-development",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "yarn build --watch"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "postcss": "^8.2.9",
+    "react": "^17.0.2",
+    "rollup": "^2.44.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.2.3"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1"
+  }
 }

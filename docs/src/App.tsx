@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import "./App.css";
-import Mixer, { MixerHandleProps, useMixer } from "./components/Mixer";
+import { Mixer, MixerHandleProps, useMixer } from "react-xy-mixer";
 import { borders, fonts, options } from "./components/options";
 import { Box, Type } from "./slang";
 
