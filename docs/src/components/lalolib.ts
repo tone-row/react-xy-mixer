@@ -1,4 +1,5 @@
 // @ts-nocheck
+/* eslint-disable */
 
 const EPS = 2.2205e-16;
 
