@@ -1,12 +1,17 @@
 {
   "private": true,
-  "workspaces": [
-    "docs",
-    "react-xy-mixer"
-  ],
+  "workspaces": {
+    "packages": [
+      "docs",
+      "react-xy-mixer"
+    ]
+  },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.1",
+    "@commitlint/config-conventional": "^12.1.1",
     "concurrently": "^6.0.1",
-    "cz-conventional-changelog": "3.3.0"
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "^6.0.0"
   },
   "scripts": {
     "dev": "concurrently -n 'react-xy-mixer,docs' 'yarn workspace react-xy-mixer dev' 'yarn workspace docs dev'",
