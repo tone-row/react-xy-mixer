@@ -1,0 +1,18 @@
+.Graph div:nth-child(1) {
+  background-color: cyan;
+}
+.Graph div:nth-child(2) {
+  background-color: rebeccapurple;
+}
+.Graph div:nth-child(3) {
+  background-color: red;
+}
+.Graph div:nth-child(4) {
+  background-color: royalblue;
+}
+.Graph div:nth-child(5) {
+  background-color: rosybrown;
+}
+.Graph {
+  display: flex;
+}

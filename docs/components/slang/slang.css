@@ -496,12 +496,12 @@ body {
 
 :root {
 	--base-font-family:Neue Montreal;
-	--base-font-size-px:18px;
-	--base-font-size:18;
+	--base-font-size-px:22px;
+	--base-font-size:22;
 	--base-font-size-mobile-px:16px;
 	--base-font-size-mobile:16;
 	--base-font-line-height:1.15;
-	--base-font-line-height-mobile:1.15;
+	--base-font-line-height-mobile:1.5;
 	--spacer-px:4px;
 	--spacer:4;
 	--base-spacing-px:16px;
@@ -515,7 +515,7 @@ body {
 	--error-correction-bottom-px:0px;
 	--error-correction-bottom:0;
 	--error-correction-bottom-scale:1;
-	--type-scale-base:1.16;
+	--type-scale-base:1.33;
 	--type-scale-base-mobile:1.16;
 	--inverse-type-scale-line-height:1;
 	--inverse-type-scale-line-height-mobile:1;
@@ -526,18 +526,18 @@ body {
 	--fluid-min-screen-size:375;
 	--fluid-max-screen-size-px:1200px;
 	--fluid-max-screen-size:1200;
-	--multiplier--3:0.6406576735413507;
-	--multiplier--2:0.7431629013079668;
-	--multiplier--1:0.8620689655172414;
+	--multiplier--3:0.42505494897852913;
+	--multiplier--2:0.5653230821414438;
+	--multiplier--1:0.7518796992481203;
 	--multiplier-0:1;
-	--multiplier-1:1.16;
-	--multiplier-2:1.3456;
-	--multiplier-3:1.5608959999999996;
-	--multiplier-4:1.8106393599999995;
-	--multiplier-5:2.100341657599999;
-	--multiplier-6:2.436396322815999;
-	--multiplier-7:2.8262197344665587;
-	--multiplier-8:3.2784148919812077;
+	--multiplier-1:1.33;
+	--multiplier-2:1.7689000000000001;
+	--multiplier-3:2.3526370000000005;
+	--multiplier-4:3.1290072100000006;
+	--multiplier-5:4.161579589300001;
+	--multiplier-6:5.534900853769002;
+	--multiplier-7:7.361418135512773;
+	--multiplier-8:9.790686120231989;
 	--mobile-multiplier--3:0.6406576735413507;
 	--mobile-multiplier--2:0.7431629013079668;
 	--mobile-multiplier--1:0.8620689655172414;

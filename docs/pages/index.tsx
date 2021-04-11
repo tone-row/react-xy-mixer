@@ -1,7 +1,9 @@
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { MixerHandleProps, useMixer, Mixer } from "react-xy-mixer";
 import { Box, Type } from "../components/slang";
 import { borders, fonts, options } from "../components/options";
+import ScienceGothic from "../components/demos/ScienceGothic";
+import BarGraph from "../components/demos/BarGraph";
 
 const CustomHandle = forwardRef<SVGPathElement, MixerHandleProps>(
   ({ center }, ref) => (
@@ -33,18 +35,6 @@ const CustomHandle = forwardRef<SVGPathElement, MixerHandleProps>(
 );
 
 const IndexPage = () => {
-  const [props2, w] = useMixer(
-    [
-      [1, 0.25],
-      [0.75, 0.79],
-      [0.5, 0.6],
-      [0.25, 0.25],
-    ],
-    {
-      handleOffset: 10,
-    }
-  );
-
   const [props, weights] = useMixer(3, {
     // rotate: -Math.PI / 2,
     initial: 1,
@@ -60,18 +50,8 @@ const IndexPage = () => {
 
   return (
     <Box className="App" root content="start normal" p={4} gap={4}>
-      <Type size={6} weight="700">
-        react-xy-mixer
-      </Type>
-      <Type size={1}>
-        A react component for mixing <em>n</em> vectors together by attributing
-        each vector to a coordinate (x,y) and finding the barycentric
-        coordinates of the draggable handle.
-      </Type>
-      <Box at={{ tablet: { template: "none / auto auto" } }}>
-        <Mixer {...props2} />
-        <Box>{JSON.stringify([...w])}</Box>
-      </Box>
+      <ScienceGothic />
+      <BarGraph />
       <Box at={{ tablet: { template: "none / auto minmax(0, 1fr)" } }} gap={4}>
         <Box>
           <Mixer

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Science Gothic";
+  src: url("/fonts/ScienceGothicVF-no-italic.ttf");
+}
+
+.Text {
+  font-family: "Science Gothic", "Adobe NotDef";
+  --slant: 0;
+  font-variation-settings: "wght" var(--weight), "wdth" var(--width),
+    "YOPQ" var(--y), "slnt" var(--slant);
+  font-size: 3vw;
+  white-space: nowrap;
+}

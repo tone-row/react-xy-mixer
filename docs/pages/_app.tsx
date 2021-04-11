@@ -2,6 +2,7 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import "../components/slang/slang.css";
 import "./_app.css";
 import Head from "next/head";
+import Page from "../components/Page";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           src="https://plausible.io/js/plausible.js"
         />
       </Head>
-      <Component {...pageProps} />
+      <Page>
+        <Component {...pageProps} />
+      </Page>
     </>
   );
 }

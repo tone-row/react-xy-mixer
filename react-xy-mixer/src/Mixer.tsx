@@ -53,7 +53,7 @@ export function useMixer(
   options: useMixerOptions = {
     size: DEFAULT_SIZE,
     rotate: 0,
-    handleOffset: 0,
+    handleOffset: 10,
     boundary: "box",
     initial: 0,
     handle: DefaultHandle,
@@ -281,7 +281,7 @@ export default function Mixer(
       //@ts-ignore
       const final = entrywisediv(x, sum(x));
 
-      return final as number[];
+      return Array.from(final) as number[];
     },
     [matrix, nodes]
   );
